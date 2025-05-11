@@ -1,10 +1,10 @@
 import {
   Box,
-  Image,
+  Flex,
   Text,
-  Stack,
   Badge,
   Button,
+  Square,
   useColorModeValue,
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
@@ -12,61 +12,63 @@ import { useAuth } from '../contexts/AuthContext';
 
 export default function StudentCard({ student }) {
   const { currentUser } = useAuth();
+  const hoverBg = useColorModeValue('gray.50', 'gray.700');
   
   return (
-    <Box
-      maxW="sm"
-      borderWidth="1px"
-      borderRadius="lg"
-      overflow="hidden"
-      bg={useColorModeValue('white', 'gray.700')}
-      boxShadow="md"
-      transition="transform 0.3s"
-      _hover={{ transform: 'scale(1.02)' }}
+    <Flex
+      width="100%"
+      alignItems="center"
+      borderBottom="1px"
+      borderColor={useColorModeValue('gray.200', 'gray.700')}
+      py={2}
+      px={3}
+      _hover={{ bg: hoverBg }}
+      transition="background-color 0.2s"
     >
-      <Image 
-        src={student.image || `https://randomuser.me/api/portraits/lego/1.jpg`} 
-        alt={`Photo of ${student.name}`}
-        objectFit="cover"
-        w="100%"
-        h="200px"
-      />
-
-      <Box p={6}>
-        <Stack spacing={3}>
-          <Text fontWeight="bold" fontSize="xl">
-            {student.name}
-          </Text>
-          
-          <Text fontSize="md" color="gray.500">
-            {student.email}
-          </Text>
-          
-          <Badge colorScheme="blue" alignSelf="flex-start">
-            {student.course}
-          </Badge>
-          
-          <Text fontSize="sm">
-            Enrolled: {new Date(student.enrollmentDate).toLocaleDateString()}
-          </Text>
-          
-          <Text fontSize="sm">
-            GPA: {student.gpa}
-          </Text>
-
-          {currentUser && (
-            <Button
-              as={RouterLink}
-              to={`/students/${student.id}`}
-              colorScheme="blue"
-              size="sm"
-              mt={2}
-            >
-              View Details
-            </Button>
-          )}
-        </Stack>
+      {/* Selection box column */}
+      <Box width="40px" textAlign="center">
+       
       </Box>
-    </Box>
+      
+      {/* Name column */}
+      <Box flex="1" minWidth="180px">
+        <Text fontWeight="medium">{student.name}</Text>
+      </Box>
+      
+      {/* Email column */}
+      <Box flex="1.5" minWidth="200px">
+        <Text color="blue.500">{student.email}</Text>
+      </Box>
+      
+      {/* Course column */}
+      <Box flex="1" minWidth="150px">
+        <Badge colorScheme="blue">{student.course}</Badge>
+      </Box>
+      
+      {/* Enrollment date column */}
+      <Box flex="1" minWidth="120px">
+        <Text fontSize="sm">{new Date(student.enrollmentDate).toLocaleDateString()}</Text>
+      </Box>
+      
+      {/* GPA column */}
+      <Box width="80px" textAlign="center">
+        <Text fontSize="sm">{student.gpa}</Text>
+      </Box>
+      
+      {/* Actions column */}
+      {currentUser && (
+        <Box width="120px" textAlign="right">
+          <Button
+            as={RouterLink}
+            to={`/students/${student.id}`}
+            size="xs"
+            colorScheme="blue"
+            variant="outline"
+          >
+            View Details
+          </Button>
+        </Box>
+      )}
+    </Flex>
   );
 }

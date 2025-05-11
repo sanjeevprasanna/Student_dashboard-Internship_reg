@@ -24,7 +24,7 @@ export function AuthProvider({ children }) {
     return createUserWithEmailAndPassword(auth, email, password);
   }
 
-  function login(email, password) {
+ async function login(email, password) {
     setAuthError(null);
     return signInWithEmailAndPassword(auth, email, password)
       .catch(error => {
@@ -33,7 +33,7 @@ export function AuthProvider({ children }) {
       });
   }
 
-  function googleSignIn() {
+ async function googleSignIn() {
     setAuthError(null);
     const provider = new GoogleAuthProvider();
     return signInWithPopup(auth, provider)

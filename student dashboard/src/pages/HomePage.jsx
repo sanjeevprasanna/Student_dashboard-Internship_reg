@@ -12,7 +12,7 @@ import {
   AlertDescription,
 } from '@chakra-ui/react';
 import { useStudents } from '../contexts/StudentContext';
-import StudentCard from '../components/StudentCard';
+import StudentCard from '../components/StudentCard.jsx';
 import CourseFilter from '../components/CourseFilter';
 
 export default function HomePage() {
@@ -69,7 +69,7 @@ export default function HomePage() {
             </Alert>
           ) : (
             <SimpleGrid 
-              columns={{ base: 1, sm: 2, md: 3, lg: 4 }} 
+              columns={{ base: 1, sm: 1, md: 1, lg: 1 }} 
               spacing={6}
             >
               {students.map(student => (
